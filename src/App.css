@@ -1,38 +1,218 @@
-.App {
+body {
+  margin: 0;
+  font-family: 'Lora', serif;
+  background-color: #111169;
+  overflow: hidden;
+}
+
+#magic-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(48, 25, 52, 0.8), rgba(0, 0, 77, 0.5));
+  animation: sparkle 12s infinite alternate;
+  z-index: -2;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 400px;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+body::before {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('think.gif');
+  margin-top: 5%;
+}
+
+body::after {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('founding.gif');
+  margin-top: 7%;
+}
+
+#quote-box {
+  background: rgba(25, 25, 112, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(204, 173, 0, 0.8);
+  max-width: 600px;
+  width: 100%;
+  height: 350px;
+  margin: 100px auto;
+  padding: 30px;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #ccad00;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+#quote-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(7, 7, 6, 0.4), rgba(204, 173, 0, 0.2));
+  z-index: -1;
+  filter: blur(16px);
+  opacity: 0.9;
+}
+
+#text {
+  font-size: 30px;
+  color: #ccad00;
+  margin: 0;
+  padding: 0;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(204, 173, 0, 0.8);
+}
+
+#author {
+  font-size: 24px;
+  color: #e0b84c;
+  margin-top: 10px;
+  font-weight: bold;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(204, 173, 0, 0.7);
+}
+
+#new-quote {
+  background: linear-gradient(145deg, #ccad00, #a67c00);
+  color: #000;
+  border: 2px solid #0f0258;
+  padding: 15px;
+  margin-top: 30px;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  transition: 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(204, 173, 0, 0.6);
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 50px;
+  width: 350px;
+  margin-left: 20%;
 }
 
-.App-link {
-  color: #61dafb;
+#new-quote:hover {
+  background: linear-gradient(145deg, #a67c00, #ccad00);
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(204, 173, 0, 0.8);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+#tweet-quote {
+  color: #ccad00;
+  text-decoration: none;
+  margin-top: 20px;
+  margin-left: 40%;
+  display: inline-flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  position: relative;
+}
+
+#tweet-quote::before {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url('220618.png') no-repeat center center;
+  background-size: contain;
+  margin-right: 5px;
+}
+
+#tweet-quote:hover {
+  color: #a67c00;
+  text-decoration: underline;
+  text-shadow: 0 0 20px rgba(204, 173, 0, 0.6);
+}
+
+@media (max-width: 1024px) {
+  #quote-box {
+    height: auto;
+    padding: 20px;
+    margin: 50px auto;
   }
-  to {
-    transform: rotate(360deg);
+
+  #text {
+    font-size: 24px;
+  }
+
+  #author {
+    font-size: 20px;
+  }
+
+  #new-quote {
+    font-size: 20px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  #tweet-quote {
+    font-size: 20px;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  body::before,
+  body::after {
+    width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  #quote-box {
+    height: auto;
+    width: 80%;
+    padding: 15px;
+    margin: 30px auto;
+    margin-top: 55%;
+  }
+
+  #text {
+    font-size: 18px;
+  }
+
+  #author {
+    font-size: 16px;
+  }
+
+  #new-quote {
+    font-size: 18px;
+    height: auto;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  #tweet-quote {
+    font-size: 18px;
+    margin-left: 35%;
+    margin-top: 10px;
+  }
+
+  body::before,
+  body::after {
+    width: 170px;
+    margin-top: 120%;
   }
 }
