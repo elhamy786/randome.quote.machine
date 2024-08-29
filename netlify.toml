@@ -4,6 +4,6 @@
   functions = "functions"
 
 [context.production.environment]
-  NODE_VERSION = "20.x"
-  # Uncomment the next line if you need OpenSSL legacy provider
+  NODE_VERSION = "20"
+  # Uncomment if needed
   # NODE_OPTIONS = "--openssl-legacy-provider"
