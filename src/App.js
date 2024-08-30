@@ -8,17 +8,14 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      console.log('Fetching quote...');
       const response = await fetch('https://api.quotable.io/random');
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+        throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('Quote fetched successfully:', data);
       setQuote({ text: data.content, author: data.author });
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching quote:', error);
       setError(error);
       setLoading(false);
     }
@@ -29,8 +26,6 @@ function App() {
   }, []);
 
   const handleNewQuote = () => {
-    setLoading(true);
-    setError(null);
     fetchQuote();
   };
 
@@ -41,7 +36,9 @@ function App() {
   if (error) {
     return (
       <p>
-        Error loading quote: {error.message}
+        Error loading quote:
+        {' '}
+        {error.message}
       </p>
     );
   }
@@ -49,7 +46,11 @@ function App() {
   return (
     <div id="quote-box">
       <p id="text">{quote.text}</p>
-      <p id="author">- {quote.author}</p>
+      <p id="author">
+        -
+        {' '}
+        {quote.author}
+      </p>
       <button
         id="new-quote"
         type="button"
@@ -63,7 +64,7 @@ function App() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Tweet
+        tweet
       </a>
     </div>
   );
