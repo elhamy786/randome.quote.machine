@@ -8,23 +8,12 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const apiKey = process.env.REACT_APP_API_KEY;
-      const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
-        method: 'GET',
-        headers: {
-          'X-Api-Key': apiKey,
-        },
-      });
+      const response = await fetch('https://api.quotable.io/random');
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
-      if (data && data.length > 0) {
-        const randomQuote = data[0];
-        setQuote({ text: randomQuote.quote, author: randomQuote.author });
-      } else {
-        throw new Error('No quotes available');
-      }
+      setQuote({ text: data.content, author: data.author });
       setLoading(false);
     } catch (error) {
       setError({
@@ -34,6 +23,7 @@ function App() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchQuote();
   }, []);
