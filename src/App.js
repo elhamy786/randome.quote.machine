@@ -12,14 +12,12 @@ function App() {
       const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
         method: 'GET',
         headers: {
-          'X-Api-Key': apiKey
+          'X-Api-Key': apiKey,
         }
       });
-      
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
-      
       const data = await response.json();
       if (data && data.length > 0) {
         const randomQuote = data[0];
@@ -27,7 +25,6 @@ function App() {
       } else {
         throw new Error('No quotes available');
       }
-      
       setLoading(false);
     } catch (error) {
       setError({
@@ -36,7 +33,7 @@ function App() {
       });
       setLoading(false);
     }
-  };  
+  };
   useEffect(() => {
     fetchQuote();
   }, []);
