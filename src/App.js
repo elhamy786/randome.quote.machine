@@ -8,7 +8,8 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const response = await fetch('https://api.quotable.io/random');
+      const apiKey = process.env.REACT_APP_API_KEY;
+      const response = await fetch(`https://api.quotable.io/random?api_key=${apiKey}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -20,7 +21,6 @@ function App() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchQuote();
   }, []);
