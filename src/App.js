@@ -9,18 +9,34 @@ function App() {
   const fetchQuote = async () => {
     try {
       const apiKey = process.env.REACT_APP_API_KEY;
-      const response = await fetch(`https://api.quotable.io/random?api_key=${apiKey}`);
+      const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
+        method: 'GET',
+        headers: {
+          'X-Api-Key': apiKey
+        }
+      });
+      
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       }
+      
       const data = await response.json();
-      setQuote({ text: data.content, author: data.author });
+      if (data && data.length > 0) {
+        const randomQuote = data[0];
+        setQuote({ text: randomQuote.quote, author: randomQuote.author });
+      } else {
+        throw new Error('No quotes available');
+      }
+      
       setLoading(false);
     } catch (error) {
-      setError(error);
+      setError({
+        message: 'Error fetching quote. Please try again later.',
+        details: error.message
+      });
       setLoading(false);
     }
-  };
+  };  
   useEffect(() => {
     fetchQuote();
   }, []);
