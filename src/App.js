@@ -13,7 +13,7 @@ function App() {
         method: 'GET',
         headers: {
           'X-Api-Key': apiKey,
-        }
+        },
       });
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -29,7 +29,7 @@ function App() {
     } catch (error) {
       setError({
         message: 'Error fetching quote. Please try again later.',
-        details: error.message
+        details: error.message,
       });
       setLoading(false);
     }
