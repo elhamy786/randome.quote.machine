@@ -16,6 +16,7 @@ function App() {
       setQuote({ text: data.content, author: data.author });
       setLoading(false);
     } catch (error) {
+      console.error('Fetch error:', error);
       setError({
         message: 'Error fetching quote. Please try again later.',
         details: error.message,
