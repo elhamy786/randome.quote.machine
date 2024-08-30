@@ -8,18 +8,21 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const response = await fetch('https://api.quotable.io/random');
+      const response = await fetch('https://quotes.rest/qod');
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
-      setQuote({ text: data.content, author: data.author });
+      // Adjust according to the API response structure
+      setQuote({
+        text: data.contents.quotes[0].quote,
+        author: data.contents.quotes[0].author
+      });
       setLoading(false);
-    } catch (error) {
-      console.error('Fetch error:', error);
+    } catch (fetchError) {
       setError({
         message: 'Error fetching quote. Please try again later.',
-        details: error.message,
+        details: fetchError.message,
       });
       setLoading(false);
     }
@@ -39,11 +42,10 @@ function App() {
 
   if (error) {
     return (
-      <p>
-        Error loading quote:
-        {' '}
-        {error.message}
-      </p>
+      <div id="error-message">
+        <p>{error.message}</p>
+        <p>{error.details}</p>
+      </div>
     );
   }
 
@@ -51,9 +53,7 @@ function App() {
     <div id="quote-box">
       <p id="text">{quote.text}</p>
       <p id="author">
-        -
-        {' '}
-        {quote.author}
+        - {quote.author}
       </p>
       <button
         id="new-quote"
