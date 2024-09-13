@@ -6,16 +6,24 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const apiKey = '20cae24a2c83b171696546b0ec14fbc3';
+
   const fetchQuote = async () => {
     try {
-      const response = await fetch('https://favqs.com/api/qotd');
+      const response = await fetch('https://favqs.com/api/qotd', {
+        headers: {
+          'Authorization': `Token ${apiKey}`
+        }
+      });
+  
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
+  
       const data = await response.json();
       setQuote({
-        text: data.content,
-        author: data.author,
+        text: data.quote.body, // Adjust based on actual API response structure
+        author: data.quote.author, // Adjust based on actual API response structure
       });
       setLoading(false);
     } catch (fetchError) {
@@ -26,6 +34,7 @@ function App() {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchQuote();
