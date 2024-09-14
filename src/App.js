@@ -8,7 +8,7 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const response = await fetch('https://zenquotes.io/api/random');
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://zenquotes.io/api/random');
 
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
