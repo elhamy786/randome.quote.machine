@@ -6,19 +6,9 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const apiKey = '20cae24a2c83b171696546b0ec14fbc3';
-
   const fetchQuote = async () => {
     try {
-      // Add the CORS proxy before your API URL
-      const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-      const apiUrl = 'https://favqs.com/api/qotd';
-
-      const response = await fetch(proxyUrl + apiUrl, {
-        headers: {
-          Authorization: `Token ${apiKey}`,
-        },
-      });
+      const response = await fetch('https://api.quotable.io/random');
 
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -26,8 +16,8 @@ function App() {
 
       const data = await response.json();
       setQuote({
-        text: data.quote.body,
-        author: data.quote.author,
+        text: data.content, // Adjusted to match the API response structure
+        author: data.author, // Adjusted to match the API response structure
       });
       setLoading(false);
     } catch (fetchError) {
@@ -64,14 +54,9 @@ function App() {
     <div id="quote-box">
       <p id="text">{quote.text}</p>
       <p id="author">
-        -
-        {quote.author}
+        - {quote.author}
       </p>
-      <button
-        id="new-quote"
-        type="button"
-        onClick={handleNewQuote}
-      >
+      <button id="new-quote" type="button" onClick={handleNewQuote}>
         New quote
       </button>
       <a
@@ -80,7 +65,7 @@ function App() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        tweet
+        Tweet
       </a>
     </div>
   );
