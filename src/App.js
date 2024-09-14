@@ -10,20 +10,24 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const response = await fetch('https://favqs.com/api/qotd', {
+      // Add the CORS proxy before your API URL
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+      const apiUrl = "https://favqs.com/api/qotd";
+  
+      const response = await fetch(proxyUrl + apiUrl, {
         headers: {
           Authorization: `Token ${apiKey}`,
         },
       });
-
+  
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
-
+  
       const data = await response.json();
       setQuote({
-        text: data.quote.body, // Adjust based on actual API response structure
-        author: data.quote.author, // Adjust based on actual API response structure
+        text: data.quote.body,
+        author: data.quote.author,
       });
       setLoading(false);
     } catch (fetchError) {
@@ -33,7 +37,7 @@ function App() {
       });
       setLoading(false);
     }
-  };
+  };  
 
   useEffect(() => {
     fetchQuote();
