@@ -38,7 +38,7 @@ body::after {
 ```
 
 ## Demo 📸
-[Live Demo](https://deploy-preview-1--boisterous-cupcake-dc91c8.netlify.app/)
+[Live Demo](https://deploy-preview-1--gleaming-narwhal-33a48e.netlify.app/)
 
 ![Screenshot](./src/Screenshot%202024-08-24%20123007.png)
 
