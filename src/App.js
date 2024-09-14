@@ -11,19 +11,19 @@ function App() {
   const fetchQuote = async () => {
     try {
       // Add the CORS proxy before your API URL
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-      const apiUrl = "https://favqs.com/api/qotd";
-  
+      const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      const apiUrl = 'https://favqs.com/api/qotd';
+
       const response = await fetch(proxyUrl + apiUrl, {
         headers: {
           Authorization: `Token ${apiKey}`,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
-  
+
       const data = await response.json();
       setQuote({
         text: data.quote.body,
@@ -37,7 +37,7 @@ function App() {
       });
       setLoading(false);
     }
-  };  
+  };
 
   useEffect(() => {
     fetchQuote();
