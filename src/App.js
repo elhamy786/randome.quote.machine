@@ -9,15 +9,15 @@ function App() {
   const fetchQuote = async () => {
     try {
       const response = await fetch('https://zenquotes.io/api/random');
-      
+
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
-  
+
       const data = await response.json();
       setQuote({
-        text: data[0].q,  // The quote text
-        author: data[0].a,  // The quote author
+        text: data[0].q,
+        author: data[0].a,
       });
       setLoading(false);
     } catch (fetchError) {
@@ -27,7 +27,7 @@ function App() {
       });
       setLoading(false);
     }
-  };  
+  };
 
   useEffect(() => {
     fetchQuote();
