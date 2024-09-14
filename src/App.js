@@ -8,16 +8,16 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const response = await fetch('https://api.quotable.io/random');
-
+      const response = await fetch('https://zenquotes.io/api/random');
+      
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
-
+  
       const data = await response.json();
       setQuote({
-        text: data.content, // Adjusted to match the API response structure
-        author: data.author, // Adjusted to match the API response structure
+        text: data[0].q,  // The quote text
+        author: data[0].a,  // The quote author
       });
       setLoading(false);
     } catch (fetchError) {
@@ -27,7 +27,7 @@ function App() {
       });
       setLoading(false);
     }
-  };
+  };  
 
   useEffect(() => {
     fetchQuote();
