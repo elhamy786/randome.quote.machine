@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+const API_NINJAS_KEY = 'Td2AHmV3bbhQxP61BKzqqg==q4QXrkQfVteEKmyu';
+
 function App() {
   const [quote, setQuote] = useState({});
   const [loading, setLoading] = useState(true);
@@ -8,7 +10,11 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://zenquotes.io/api/random');
+      const response = await fetch('https://api.api-ninjas.com/v1/quotes?category=inspirational', {
+        headers: {
+          'X-Api-Key': API_NINJAS_KEY,
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -16,8 +22,8 @@ function App() {
 
       const data = await response.json();
       setQuote({
-        text: data[0].q,
-        author: data[0].a,
+        text: data[0].quote,
+        author: data[0].author || 'Unknown',
       });
       setLoading(false);
     } catch (fetchError) {
@@ -34,6 +40,7 @@ function App() {
   }, []);
 
   const handleNewQuote = () => {
+    setLoading(true);
     fetchQuote();
   };
 
@@ -54,8 +61,7 @@ function App() {
     <div id="quote-box">
       <p id="text">{quote.text}</p>
       <p id="author">
-        -
-        {quote.author}
+        - {quote.author}
       </p>
       <button id="new-quote" type="button" onClick={handleNewQuote}>
         New quote
